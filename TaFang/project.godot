@@ -24,6 +24,7 @@ Sys="*res://codes/sys.gd"
 window/size/viewport_width=320
 window/size/viewport_height=640
 window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [rendering]
 
