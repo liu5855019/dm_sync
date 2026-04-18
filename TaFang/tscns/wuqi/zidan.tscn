@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvbb2fnvuibns"]
+
+[ext_resource type="Script" uid="uid://bducernbmpkd6" path="res://tscns/wuqi/zidan.gd" id="1_u12no"]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_u12no")
+metadata/_edit_vertical_guides_ = [4.0]
+metadata/_edit_horizontal_guides_ = [-34.0]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-0.0459463, -8.70323, -4.08198, -0.445161, -4.08198, 8.84516, 3.99009, 8.84516, 3.99009, -0.445161)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

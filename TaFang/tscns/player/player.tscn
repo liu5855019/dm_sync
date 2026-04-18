@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://h6xs2h62a5j1"]
+
+[ext_resource type="Texture2D" uid="uid://56ym72xv3cpc" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://dxbamlp5dvykd" path="res://tscns/player/player.gd" id="1_kr2vw"]
+
+[node name="player" type="Node2D"]
+script = ExtResource("1_kr2vw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.257813, 0.257813)
+texture = ExtResource("1_4flbx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+texture_filter = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/StaticBody2D"]
+polygon = PackedVector2Array(-62.0605, -62.0605, 62.0605, -62.0605, 62.0605, 62.0603, -62.0605, 62.0603)
+
+[connection signal="input_event" from="Sprite2D/StaticBody2D" to="." method="_on_static_body_2d_input_event"]

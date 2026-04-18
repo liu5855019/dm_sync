@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8d64oj57ejwg"]
+
+[ext_resource type="PackedScene" uid="uid://hu70oasl25fh" path="res://tscns/card/baseCard.tscn" id="1_8sjqn"]
+[ext_resource type="Script" uid="uid://b5svfbcgv8387" path="res://tscns/card/cards.gd" id="1_bmou4"]
+
+[node name="cards" type="Node2D"]
+script = ExtResource("1_bmou4")
+
+[node name="card1" parent="." instance=ExtResource("1_8sjqn")]
+offset_left = 6.0
+offset_top = 226.0
+offset_right = 113.0
+offset_bottom = 414.0
+
+[node name="card2" parent="." instance=ExtResource("1_8sjqn")]
+offset_left = 113.0
+offset_top = 226.0
+offset_right = 220.0
+offset_bottom = 414.0
+
+[node name="card3" parent="." instance=ExtResource("1_8sjqn")]
+offset_left = 220.0
+offset_top = 226.0
+offset_right = 327.0
+offset_bottom = 414.0
