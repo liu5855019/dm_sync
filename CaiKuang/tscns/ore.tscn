@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://kxjioxwiwnv"]
+
+[ext_resource type="Texture2D" uid="uid://hjjskc3niciv" path="res://items/ore.png" id="1_s2ujb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0bjeg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s2ujb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Ore" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_0bjeg")
