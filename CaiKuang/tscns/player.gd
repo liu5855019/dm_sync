@@ -9,14 +9,16 @@ var tile_map_layer: TileMapLayer
 # 用于记录当前是否正在与矿石交互
 var is_near_ore = false
 var current_ore = null # 记录当前靠近的矿石节点
+var data:PlayerData
 
-# 获取 Area2D 的引用
-@onready var detection_area = $DetectionArea
 
 func _ready():
 	# 获取兄弟节点 TileMapLayer 的引用
 	# 假设 Player 和 TileMapLayer 是同一个父节点的子节点
-	tile_map_layer = get_parent().get_node("TileMapLayer")
+	tile_map_layer = get_parent().get_parent().get_node("TileMapLayer")
+	
+	
+	
 	
 func _input(event):
 	
@@ -76,22 +78,10 @@ func snap_to_grid():
 	global_position = tile_map_layer.to_global(snapped_local_pos)
 
 	print("吸附到格子坐标: ", tile_coord)
-
-
-
-
-# --- Area2D 的信号处理函数 ---
-
-func _on_body_entered(body):
-	# 当矿工的 Area2D 碰到一个 StaticBody2D (矿石)
-	if body is StaticBody2D and body.is_in_group("ores"): # 建议给矿石添加一个 "ores" 组
-		is_near_ore = true
-		current_ore = body
-		print("靠近矿石: ", body.name)
-
-func _on_body_exited(body):
-	# 当矿工离开矿石范围
-	if body is StaticBody2D and body.is_in_group("ores"):
-		is_near_ore = false
-		current_ore = null
-		print("离开矿石范围")
+	
+	var p = get_parent()
+	#print(p.get_children())
+	for node in p.get_children():
+		print(node)
+		print(node.name)
+	
