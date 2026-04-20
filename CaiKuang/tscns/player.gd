@@ -1,5 +1,9 @@
 extends Node2D
 
+class_name  Player
+
+var data:PlayerData
+
 
 # 拖拽相关变量
 var is_dragging = false
@@ -7,9 +11,8 @@ var drag_offset = Vector2.ZERO
 var tile_map_layer: TileMapLayer
 
 # 用于记录当前是否正在与矿石交互
-var is_near_ore = false
 var current_ore = null # 记录当前靠近的矿石节点
-var data:PlayerData
+
 
 
 func _ready():
@@ -32,6 +35,8 @@ func _input(event):
 		var rect = Rect2(global_position - Vector2(16, 16), Vector2(32, 32)) # 假设大小为 32x32
 		if rect.has_point(get_global_mouse_position()):
 			is_dragging = true
+			current_ore = null
+			
 			# 记录偏移量，让物体跟随鼠标更自然
 			drag_offset = global_position - get_global_mouse_position()
 			z_index = 10 # 拖起时置顶
@@ -45,7 +50,8 @@ func _input(event):
 			
 			snap_to_grid()
 			print("dragging end")
-			# 在这里可以调用矿石的收获函数，比如 current_ore.mine()
+			
+			check_and_start()
 
 	# 3. 处理鼠标移动：更新矿工位置
 	elif event is InputEventMouseMotion and is_dragging:
@@ -62,13 +68,8 @@ func snap_to_grid():
 	# 步骤 B: 将局部坐标转换为瓦片地图坐标 (Vector2i)
 	# local_to_map 会自动处理取整，找到对应的格子
 	var tile_coord = tile_map_layer.local_to_map(local_pos)
-	
 	# 判断是否超出范围
-	var used_rect = tile_map_layer.get_used_rect()
-	tile_coord.x = max(0, tile_coord.x)
-	tile_coord.x = min(tile_coord.x, used_rect.size.x-1)
-	tile_coord.y = max(0, tile_coord.y)
-	tile_coord.y = min(tile_coord.y, used_rect.size.y-1)
+	tile_coord = get_safe_tile_size(tile_coord)
 
 	# 步骤 C: 将瓦片坐标转换回局部坐标 (即格子的中心点或原点)
 	var snapped_local_pos = tile_map_layer.map_to_local(tile_coord)
@@ -76,12 +77,34 @@ func snap_to_grid():
 	# 步骤 D: 更新 Player 的最终位置
 	# 如果需要转换回全局坐标（因为 Player 是兄弟节点，不在 TileMapLayer 内部）
 	global_position = tile_map_layer.to_global(snapped_local_pos)
+	data.position = tile_coord
 
 	print("吸附到格子坐标: ", tile_coord)
 	
-	var p = get_parent()
-	#print(p.get_children())
-	for node in p.get_children():
-		print(node)
-		print(node.name)
+
+func check_and_start():
+	var tmp_ore :Ore = null
 	
+	var p = get_parent()
+	for node in p.get_children():
+		if node is Ore:
+			if node.data.position == Vector2i(data.position.x, data.position.y-1) \
+				or node.data.position == Vector2i(data.position.x, data.position.y+1) \
+				or node.data.position == Vector2i(data.position.x-1, data.position.y) \
+				or node.data.position == Vector2i(data.position.x+1, data.position.y):
+				
+				if tmp_ore == null:
+					tmp_ore = node;
+				elif node.data.level < tmp_ore.data.level:
+					tmp_ore = node;
+				
+	current_ore = tmp_ore 
+
+
+func get_safe_tile_size(size: Vector2i) -> Vector2i:
+	var used_rect = tile_map_layer.get_used_rect()
+	size.x = max(0, size.x)
+	size.x = min(size.x, used_rect.size.x-1)
+	size.y = max(0, size.y)
+	size.y = min(size.y, used_rect.size.y-1)
+	return size

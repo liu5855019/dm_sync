@@ -10,9 +10,10 @@ var score = 0.0
 var player_data_list: Array = []
 
 func _ready() -> void:
-	player_data_list.append(OreData.new(1,Vector2(0,0)))
-	player_data_list.append(OreData.new(1,Vector2(1,0)))
-	player_data_list.append(PlayerData.new(1, Vector2(0, 1)))
+	player_data_list.append(OreData.new(1,Vector2(0, 0)))
+	player_data_list.append(OreData.new(1,Vector2(1, 0)))
+	player_data_list.append(OreData.new(2, Vector2(1, 1)))
+	player_data_list.append(PlayerData.new(1, Vector2(0, 2)))
 	
 	reload_scene()
 	
@@ -31,7 +32,6 @@ func reload_scene() -> void:
 func add_ore(data:OreData):
 	var ore = ore_scene.instantiate()
 	ore.data = data
-	ore.name = "ore"
 		
 	# 步骤 C: 将瓦片坐标转换回局部坐标 (即格子的中心点或原点)
 	var snapped_local_pos = $TileMapLayer.map_to_local(data.position)
