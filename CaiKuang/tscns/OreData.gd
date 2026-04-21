@@ -7,7 +7,7 @@ class_name OreData # 注册类名，方便在其他地方引用
 @export var position: Vector2i = Vector2i.ZERO # 位置信息
 @export var resource: int = 100
 @export var current_resource: int = 100
-var type: String = Sys.type_ore
+var type: String = SysConst.type_ore
 
 # 构造函数（可选）
 func _init(lvl: int = 1, pos: Vector2i = Vector2i.ZERO):

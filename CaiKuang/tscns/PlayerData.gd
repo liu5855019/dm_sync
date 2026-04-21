@@ -2,7 +2,7 @@
 extends Resource
 class_name PlayerData # 注册类名，方便在其他地方引用
 
-var type: String = Sys.type_player
+var type: String = SysConst.type_player
 
 
 # 属性定义

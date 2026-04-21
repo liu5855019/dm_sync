@@ -23,13 +23,14 @@ func _ready():
 	
 	
 func _physics_process(delta: float) -> void:
-	if Sys.isPase:
+	if Sys.is_pase:
 		return;
 
-    if current_ore == null:
-        mining_interval = 0
-    
-    mining(delta)
+	if current_ore == null:
+		mining_interval = 0
+		return;
+	
+	mining(delta)
 
 	
 	
@@ -121,12 +122,9 @@ func get_safe_tile_size(size: Vector2i) -> Vector2i:
 
 ## cai kuang
 func mining(delta: float):
-    mining_interval += delta
-    if mining_interval >= data.mining_speed:
-        # 执行采矿逻辑
-        mining_interval = 0
-        if current_ore:
-            current_ore.mining(data.act)
-
-
-
+	mining_interval += delta
+	if mining_interval >= data.mining_speed:
+		# 执行采矿逻辑
+		mining_interval = 0
+		if current_ore:
+			current_ore.mining(data.act)
