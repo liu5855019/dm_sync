@@ -5,7 +5,11 @@ class_name Ore
 
 var data: OreData
 
-func cai_kuang(act: int):
+
+signal score_add(value: int)
+
+
+func mining(act: int):
 	if data.current_resource < act:
 		data.current_resource -= data.current_resource
 	else:

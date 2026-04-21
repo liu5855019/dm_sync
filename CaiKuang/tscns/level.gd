@@ -1,12 +1,16 @@
 extends Node2D
 
+class_name Level
+
 
 var player_scene = load("res://tscns/player.tscn")
 var ore_scene = load("res://tscns/ore.tscn")
 
 var score = 0.0
+signal score_changed(old_value: int, new_value: int)
+
 # 声明一个只能存储 OreData 对象的数组
-#var player_data_list: Array[OreData] = []
+# var player_data_list: Array[OreData] = []
 var player_data_list: Array = []
 
 func _ready() -> void:
@@ -16,6 +20,9 @@ func _ready() -> void:
 	player_data_list.append(PlayerData.new(1, Vector2(0, 2)))
 	
 	reload_scene()
+
+    Ore.
+
 	
 	
 func _physics_process(delta: float) -> void:

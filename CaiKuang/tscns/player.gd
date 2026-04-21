@@ -12,7 +12,7 @@ var tile_map_layer: TileMapLayer
 
 # 用于记录当前是否正在与矿石交互
 var current_ore = null # 记录当前靠近的矿石节点
-
+var mining_interval = 0
 
 
 func _ready():
@@ -21,6 +21,16 @@ func _ready():
 	tile_map_layer = get_parent().get_parent().get_node("TileMapLayer")
 	
 	
+	
+func _physics_process(delta: float) -> void:
+	if Sys.isPase:
+		return;
+
+    if current_ore == null:
+        mining_interval = 0
+    
+    mining(delta)
+
 	
 	
 func _input(event):
@@ -108,3 +118,15 @@ func get_safe_tile_size(size: Vector2i) -> Vector2i:
 	size.y = max(0, size.y)
 	size.y = min(size.y, used_rect.size.y-1)
 	return size
+
+## cai kuang
+func mining(delta: float):
+    mining_interval += delta
+    if mining_interval >= data.mining_speed:
+        # 执行采矿逻辑
+        mining_interval = 0
+        if current_ore:
+            current_ore.mining(data.act)
+
+
+
