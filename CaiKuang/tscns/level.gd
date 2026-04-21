@@ -9,6 +9,8 @@ var ore_scene = load("res://tscns/ore.tscn")
 var score = 0.0
 signal score_changed(old_value: int, new_value: int)
 
+@onready var score_node = $Score
+
 # 声明一个只能存储 OreData 对象的数组
 # var player_data_list: Array[OreData] = []
 var player_data_list: Array = []
@@ -67,6 +69,8 @@ func add_player(data: PlayerData):
 func _on_ore_mined(value: int):
 	score += value
 	score_changed.emit(score - value, score)
+
+	score_node.on_score_changed(score-value, score)
 
 
 #
