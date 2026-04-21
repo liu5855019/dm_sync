@@ -19,7 +19,14 @@ func _ready() -> void:
 	player_data_list.append(OreData.new(1,Vector2(0, 0)))
 	player_data_list.append(OreData.new(1,Vector2(1, 0)))
 	player_data_list.append(OreData.new(2, Vector2(1, 1)))
-	player_data_list.append(PlayerData.new(1, Vector2(0, 2)))
+	player_data_list.append(OreData.new(2, Vector2(1, 2)))
+	player_data_list.append(OreData.new(3, Vector2(1, 3)))
+	
+	player_data_list.append(OreData.new(4, Vector2(1, 4)))
+	player_data_list.append(OreData.new(5, Vector2(1, 5)))
+	player_data_list.append(OreData.new(6, Vector2(1, 6)))
+
+	player_data_list.append(PlayerData.new(1, Vector2(0, 10)))
 	
 	reload_scene()
 

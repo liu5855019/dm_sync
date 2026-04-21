@@ -5,9 +5,19 @@ class_name Ore
 
 var data: OreData
 
+@onready var score_label = $Score
+@onready var level_label = $Level
+
+
 
 # 定义采矿信号，携带矿石价值数据
 signal mined(value: int)
+
+
+func _ready() -> void:
+	level_label.text = str(data.level)
+	score_label.text = str(data.current_resource)
+
 
 
 
@@ -26,4 +36,4 @@ func mining(act: int):
 		mined.emit(act)
 	
 	print(data.current_resource)
-		
+	score_label.text = str(data.current_resource)
