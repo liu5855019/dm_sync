@@ -21,7 +21,7 @@ func _ready() -> void:
 	
 	reload_scene()
 
-    Ore.
+    
 
 	
 	
@@ -39,6 +39,7 @@ func reload_scene() -> void:
 func add_ore(data:OreData):
 	var ore = ore_scene.instantiate()
 	ore.data = data
+    ore.mined.connect(_on_ore_mined)
 		
 	# 步骤 C: 将瓦片坐标转换回局部坐标 (即格子的中心点或原点)
 	var snapped_local_pos = $TileMapLayer.map_to_local(data.position)
@@ -61,6 +62,11 @@ func add_player(data: PlayerData):
 	player.position = p
 	
 	$Resources.add_child(player)
+
+
+func _on_ore_mined(value: int):
+	score += value
+	score_changed.emit(score - value, score)
 
 
 #
