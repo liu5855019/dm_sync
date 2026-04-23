@@ -3,8 +3,8 @@ extends Node2D
 class_name Level
 
 
-var player_scene = load("res://tscns/player.tscn")
-var ore_scene = load("res://tscns/ore.tscn")
+var player_scene = load("res://tscns/player/player.tscn")
+var ore_scene = load("res://tscns/ore/ore.tscn")
 
 var score = 0.0
 signal score_changed(old_value: int, new_value: int)
