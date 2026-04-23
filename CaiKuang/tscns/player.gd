@@ -26,11 +26,20 @@ func _physics_process(delta: float) -> void:
 	if Sys.is_pase:
 		return;
 
-	if current_ore == null:
-		mining_interval = 0
-		return;
-	
-	mining(delta)
+    if is_dragging:
+        # 拖动时不进行其他逻辑处理
+        mining_interval = 0
+        return
+
+    # 如果当前没有正在交互的矿石，检查周围是否有矿石可以交互    
+	mining_interval += delta
+	if mining_interval >= data.mining_speed:
+        mining_interval = 0
+        if current_ore == null:
+            check_and_start()
+            
+        if current_ore != null:
+			current_ore.mining(data.act)
 
 	
 	
@@ -120,11 +129,3 @@ func get_safe_tile_size(size: Vector2i) -> Vector2i:
 	size.y = min(size.y, used_rect.size.y-1)
 	return size
 
-## cai kuang
-func mining(delta: float):
-	mining_interval += delta
-	if mining_interval >= data.mining_speed:
-		# 执行采矿逻辑
-		mining_interval = 0
-		if current_ore:
-			current_ore.mining(data.act)
