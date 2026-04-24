@@ -26,19 +26,19 @@ func _physics_process(delta: float) -> void:
 	if Sys.is_pase:
 		return;
 
-    if is_dragging:
-        # 拖动时不进行其他逻辑处理
-        mining_interval = 0
-        return
+	if is_dragging:
+		# 拖动时不进行其他逻辑处理
+		mining_interval = 0
+		return
 
-    # 如果当前没有正在交互的矿石，检查周围是否有矿石可以交互    
+	# 如果当前没有正在交互的矿石，检查周围是否有矿石可以交互    
 	mining_interval += delta
 	if mining_interval >= data.mining_speed:
-        mining_interval = 0
-        if current_ore == null:
-            check_and_start()
-            
-        if current_ore != null:
+		mining_interval = 0
+		if current_ore == null:
+			check_and_start()
+			
+		if current_ore != null:
 			current_ore.mining(data.act)
 
 	
@@ -90,30 +90,30 @@ func snap_to_grid():
 	var tile_coord = tile_map_layer.local_to_map(local_pos)
 	# 确保 tile_coord 在地图范围内，避免越界
 	tile_coord = get_safe_tile_size(tile_coord)
-    var node = get_node_in_tile(tile_coord)
-    if node != null and node is Player:
-        if node.data.level == data.level:
-            merge(node)
-        else: # 调换位置
-            var temp_pos = node.data.position
-            node.data.position = data.position
-            data.position = temp_pos
-            
-            # 更新两个玩家的位置
-            node.global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(node.data.position))
-            global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(data.position))
-        return
+	var node = get_node_in_tile(tile_coord)
+	if node != null and node is Player:
+		if node.data.level == data.level:
+			merge(node)
+		else: # 调换位置
+			var temp_pos = node.data.position
+			node.data.position = data.position
+			data.position = temp_pos
+			
+			# 更新两个玩家的位置
+			node.global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(node.data.position))
+			global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(data.position))
+		return
 
-    if node != null and node is Ore:
-        # 如果格子上有矿石，找到附近的空格子
-        var nearby_null_tile = find_nearby_null_tile(tile_coord)
-        if nearby_null_tile != null:
-            tile_coord = nearby_null_tile
-        else:
-            print("没有找到附近的空格子，无法移动")
-            queue_free() # 删除玩家节点
-            return
-        
+	if node != null and node is Ore:
+		# 如果格子上有矿石，找到附近的空格子
+		var nearby_null_tile = find_nearby_null_tile(tile_coord)
+		if nearby_null_tile != null:
+			tile_coord = nearby_null_tile
+		else:
+			print("没有找到附近的空格子，无法移动")
+			queue_free() # 删除玩家节点
+			return
+		
 
 	# 步骤 C: 将瓦片坐标转换回局部坐标 (即格子的中心点或原点)
 	var snapped_local_pos = tile_map_layer.map_to_local(tile_coord)
@@ -126,30 +126,30 @@ func snap_to_grid():
 	print("吸附到格子坐标: ", tile_coord)
 	
 func merge(player: Player):
-    if player.data.level == data.level:
-        data.level += 1
-        player.queue_free() # 删除被合并的玩家节点
-        print("合并成功，当前等级: ", data.level)
-    else:
-        print("无法合并，等级不匹配")
+	if player.data.level == data.level:
+		data.level += 1
+		player.queue_free() # 删除被合并的玩家节点
+		print("合并成功，当前等级: ", data.level)
+	else:
+		print("无法合并，等级不匹配")
 
 func find_nearby_null_tile(loc: Vector2i) -> Vector2i:
 
-    var positions = []
-    var used_rect = tile_map_layer.get_used_rect()
-    for x in used_rect.size.x:
-        for y in used_rect.size.y:
-            positions.append(Vector2i(x, y))
+	var positions = []
+	var used_rect = tile_map_layer.get_used_rect()
+	for x in used_rect.size.x:
+		for y in used_rect.size.y:
+			positions.append(Vector2i(x, y))
 
-    null_posi = null
-    len = 9999
-    for position in positions:
-        if get_node_in_tile(position) == null:
-            var dis = position.distance_to(loc)
-            if dis < len:
-                len = dis
-                null_posi = position
-    return null_posi # 如果周围没有空格子，返回 null
+	var null_posi = null
+	var len = 9999
+	for position in positions:
+		if get_node_in_tile(position) == null:
+			var dis = position.distance_to(loc)
+			if dis < len:
+				len = dis
+				null_posi = position
+	return null_posi # 如果周围没有空格子，返回 null
 
 func check_and_start():
 	var tmp_ore :Ore = null
@@ -171,13 +171,13 @@ func check_and_start():
 
 
 func get_node_in_tile(pos: Vector2i) -> Node:
-    var p = get_parent()
-    for node in p.get_children():
-        if node is Ore and node.data.position == pos:
-            return node
-        if node is Player and node.data.position == pos:
-            return node
-    return null
+	var p = get_parent()
+	for node in p.get_children():
+		if node is Ore and node.data.position == pos:
+			return node
+		if node is Player and node.data.position == pos:
+			return node
+	return null
 
 
 
@@ -188,4 +188,3 @@ func get_safe_tile_size(size: Vector2i) -> Vector2i:
 	size.y = max(0, size.y)
 	size.y = min(size.y, used_rect.size.y-1)
 	return size
-
