@@ -1,6 +1,8 @@
 # PlayerData.gd
-extends Resource
-class_name PlayerData # 注册类名，方便在其他地方引用
+# extends Resource
+# class_name PlayerData # 注册类名，方便在其他地方引用
+
+class_name PlayerData extends Resource
 
 var type: String = SysConst.type_player
 

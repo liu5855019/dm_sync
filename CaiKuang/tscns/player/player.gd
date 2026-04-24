@@ -16,8 +16,7 @@ var mining_interval = 0
 
 
 func _ready():
-	# 获取兄弟节点 TileMapLayer 的引用
-	# 假设 Player 和 TileMapLayer 是同一个父节点的子节点
+	# 获取 TileMapLayer 的引用
 	tile_map_layer = get_parent().get_parent().get_node("TileMapLayer")
 	
 	

@@ -28,14 +28,14 @@ func _ready() -> void:
 
 	player_data_list.append(PlayerData.new(1, Vector2(0, 10)))
 	
+	# save_data() # 保存数据到 JSON 文件
+
 	reload_scene()
 
 
-	
-	
-	
+
 func _physics_process(delta: float) -> void:
-	return
+	pass
 
 func reload_scene() -> void:
 	for data in player_data_list:
