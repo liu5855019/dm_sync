@@ -13,14 +13,44 @@ static func _get_level1_data() -> Array:
 	var data_list: Array = [
 		PlayerData.new(1, Vector2(3, 12)),
 		PlayerData.new(1, Vector2(4, 12)),
-		OreData.new(1, Vector2(0, 0)),
+		OreData.new(10, Vector2(0, 0)),
 		OreData.new(1, Vector2(1, 0)),
 		OreData.new(2, Vector2(1, 1)),
 		OreData.new(2, Vector2(1, 2)),
 		OreData.new(3, Vector2(1, 3)),
 		OreData.new(4, Vector2(1, 4)),
 		OreData.new(5, Vector2(1, 5)),
-		OreData.new(6, Vector2(1, 6))
+		OreData.new(6, Vector2(1, 6)),
+
+		# 7 row, level = 3
+		OreData.new(3, Vector2(0, 7)),
+		OreData.new(3, Vector2(1, 7)),
+		OreData.new(3, Vector2(2, 7)),
+		OreData.new(3, Vector2(3, 7)),
+		OreData.new(3, Vector2(4, 7)),
+		OreData.new(3, Vector2(5, 7)),
+		OreData.new(3, Vector2(6, 7)),
+		OreData.new(3, Vector2(7, 7)),
+
+		# 8 row, level = 2
+		OreData.new(2, Vector2(0, 8)),
+		OreData.new(2, Vector2(1, 8)),
+		OreData.new(2, Vector2(2, 8)),
+		OreData.new(2, Vector2(3, 8)),
+		OreData.new(2, Vector2(4, 8)),
+		OreData.new(2, Vector2(5, 8)),
+		OreData.new(2, Vector2(6, 8)),
+		OreData.new(2, Vector2(7, 8)),
+
+		# 9 row
+		OreData.new(1, Vector2(0, 9)),
+		OreData.new(1, Vector2(1, 9)),
+		OreData.new(1, Vector2(2, 9)),
+		OreData.new(1, Vector2(3, 9)),
+		OreData.new(1, Vector2(4, 9)),
+		OreData.new(1, Vector2(5, 9)),
+		OreData.new(1, Vector2(6, 9)),
+		OreData.new(1, Vector2(7, 9))
 	]
 	return data_list
 
