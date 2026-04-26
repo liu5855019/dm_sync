@@ -96,7 +96,7 @@ func snap_to_grid():
 	var tile_coord = tile_map_layer.local_to_map(local_pos)
 	# 确保 tile_coord 在地图范围内，避免越界
 	tile_coord = get_safe_tile_size(tile_coord)
-	var node = get_node_in_tile(tile_coord)
+	var node = tile_map_layer.get_node_in_tile(tile_coord)
 	if node != null and node is Player and node != self:
 		if node.data.level == data.level:
 			merge(node)
@@ -112,7 +112,7 @@ func snap_to_grid():
 
 	if node != null and node is Ore:
 		# 如果格子上有矿石，找到附近的空格子
-		var nearby_null_tile = find_nearby_null_tile(tile_coord)
+		var nearby_null_tile = tile_map_layer.find_nearby_null_tile(tile_coord)
 		if nearby_null_tile != null:
 			tile_coord = nearby_null_tile
 		else:
@@ -141,23 +141,6 @@ func merge(player: Player):
 	else:
 		print("无法合并，等级不匹配")
 
-func find_nearby_null_tile(loc: Vector2i) -> Vector2i:
-
-	var positions = []
-	var used_rect = tile_map_layer.get_used_rect()
-	for x in used_rect.size.x:
-		for y in used_rect.size.y:
-			positions.append(Vector2i(x, y))
-
-	var null_posi = null
-	var min_dis = 9999
-	for posi in positions:
-		if get_node_in_tile(posi) == null:
-			var dis = posi.distance_to(loc)
-			if dis < min_dis:
-				min_dis = dis
-				null_posi = posi
-	return null_posi # 如果周围没有空格子，返回 null
 
 func check_and_start():
 	var tmp_ore :Ore = null
@@ -178,14 +161,6 @@ func check_and_start():
 	current_ore = tmp_ore 
 
 
-func get_node_in_tile(pos: Vector2i) -> Node:
-	var p = get_parent()
-	for node in p.get_children():
-		if node is Ore and node.data.position == pos:
-			return node
-		if node is Player and node.data.position == pos:
-			return node
-	return null
 
 
 

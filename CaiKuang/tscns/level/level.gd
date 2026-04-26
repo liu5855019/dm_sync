@@ -7,7 +7,7 @@ var player_scene = load("res://tscns/player/player.tscn")
 var ore_scene = load("res://tscns/ore/ore.tscn")
 var level_btn_scene = load("res://tscns/LevelBtn/LevelBtn.tscn")
 
-var score = 0.0
+var score: int = 0
 signal score_changed(old_value: int, new_value: int)
 signal max_player_level_changed(new_level: int)
 
@@ -32,9 +32,12 @@ func _ready() -> void:
 func _add_level_btns():
 	var level_btn_container = $ScrollContainer/HBoxContainer
 	for i in range(1, 11):
-		var scene = level_btn_scene.instantiate()
-		scene.level = i
-		level_btn_container.add_child(scene)
+		var level_btn = level_btn_scene.instantiate()
+		level_btn.level = i
+		level_btn.generate_player.connect(on_add_player_btn_pressed)
+		self.max_player_level_changed.connect(level_btn.on_max_player_level_changed)
+		self.score_changed.connect(level_btn.on_score_changed)
+		level_btn_container.add_child(level_btn)
 
 
 func _physics_process(delta: float) -> void:
@@ -65,6 +68,7 @@ func add_ore(data:OreData):
 func add_player(data: PlayerData):
 	var player = player_scene.instantiate()
 	player.data = data
+	player.signal_merged.connect(_on_player_merged)
 		
 	# 步骤 C: 将瓦片坐标转换回局部坐标 (即格子的中心点或原点)
 	var snapped_local_pos = $TileMapLayer.map_to_local(data.position)
@@ -87,6 +91,18 @@ func _on_player_merged(new_level: int):
 		max_plarer_level = new_level
 		print("当前最高玩家等级: ", max_plarer_level)
 		max_player_level_changed.emit(max_plarer_level)
+
+func on_add_player_btn_pressed(level: int, price: int):
+
+	score -= price
+	score_changed.emit(score + price, score)
+
+	print("请求生成玩家，等级: ", level)
+	var data = PlayerData.new()
+	data.level = level
+	data.position = Vector2i(0, 12)
+	data.position = $TileMapLayer.find_nearby_null_tile(data.position)
+	add_player(data)
 
 
 

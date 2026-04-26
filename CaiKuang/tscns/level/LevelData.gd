@@ -11,8 +11,8 @@ static  func get_data_by_level(lvl: int) -> Array:
 
 static func _get_level1_data() -> Array:
 	var data_list: Array = [
+		PlayerData.new(1, Vector2(3, 12)),
 		PlayerData.new(1, Vector2(4, 12)),
-		PlayerData.new(1, Vector2(5, 12)),
 		OreData.new(1, Vector2(0, 0)),
 		OreData.new(1, Vector2(1, 0)),
 		OreData.new(2, Vector2(1, 1)),
