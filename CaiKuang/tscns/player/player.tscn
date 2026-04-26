@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://yoeen68xlw74"]
 
 [ext_resource type="Texture2D" uid="uid://l6ec74m6iuvo" path="res://icon.svg" id="1_ltdp4"]
-[ext_resource type="Script" uid="uid://ddkvymlo0sra8" path="res://tscns/player.gd" id="1_x5d1x"]
+[ext_resource type="Script" uid="uid://ddkvymlo0sra8" path="res://tscns/player/player.gd" id="1_x5d1x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x5d1x"]
 animations = [{
@@ -20,3 +20,20 @@ script = ExtResource("1_x5d1x")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.27, 0.27)
 sprite_frames = SubResource("SpriteFrames_x5d1x")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.380392, 0, 0, 1)
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1

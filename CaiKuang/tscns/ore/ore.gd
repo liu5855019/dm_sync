@@ -35,5 +35,4 @@ func mining(act: int):
 		data.current_resource -= act
 		mined.emit(act)
 	
-	print(data.current_resource)
 	score_label.text = str(data.current_resource)

@@ -26,7 +26,7 @@ func _ready() -> void:
 	player_data_list.append(OreData.new(5, Vector2(1, 5)))
 	player_data_list.append(OreData.new(6, Vector2(1, 6)))
 
-	player_data_list = LevelData.get_data_by_level‎(1)
+	player_data_list = LevelData.get_data_by_level(1)
 	
 	# save_data() # 保存数据到 JSON 文件
 

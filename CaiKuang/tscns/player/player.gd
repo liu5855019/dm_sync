@@ -5,6 +5,8 @@ class_name  Player
 var data:PlayerData
 
 
+@onready var level_label = $Label
+
 # 拖拽相关变量
 var is_dragging = false
 var drag_offset = Vector2.ZERO
@@ -15,9 +17,13 @@ var current_ore = null # 记录当前靠近的矿石节点
 var mining_interval = 0
 
 
+
+
 func _ready():
 	# 获取 TileMapLayer 的引用
 	tile_map_layer = get_parent().get_parent().get_node("TileMapLayer")
+
+	level_label.text = str(data.level)
 	
 	
 	
@@ -90,7 +96,7 @@ func snap_to_grid():
 	# 确保 tile_coord 在地图范围内，避免越界
 	tile_coord = get_safe_tile_size(tile_coord)
 	var node = get_node_in_tile(tile_coord)
-	if node != null and node is Player:
+	if node != null and node is Player and node != self:
 		if node.data.level == data.level:
 			merge(node)
 		else: # 调换位置
@@ -101,7 +107,7 @@ func snap_to_grid():
 			# 更新两个玩家的位置
 			node.global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(node.data.position))
 			global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(data.position))
-		return
+			return
 
 	if node != null and node is Ore:
 		# 如果格子上有矿石，找到附近的空格子
@@ -128,6 +134,7 @@ func merge(player: Player):
 	if player.data.level == data.level:
 		data.level += 1
 		player.queue_free() # 删除被合并的玩家节点
+		level_label.text = str(data.level)
 		print("合并成功，当前等级: ", data.level)
 	else:
 		print("无法合并，等级不匹配")
@@ -141,13 +148,13 @@ func find_nearby_null_tile(loc: Vector2i) -> Vector2i:
 			positions.append(Vector2i(x, y))
 
 	var null_posi = null
-	var len = 9999
-	for position in positions:
-		if get_node_in_tile(position) == null:
-			var dis = position.distance_to(loc)
-			if dis < len:
-				len = dis
-				null_posi = position
+	var min_dis = 9999
+	for posi in positions:
+		if get_node_in_tile(posi) == null:
+			var dis = posi.distance_to(loc)
+			if dis < min_dis:
+				min_dis = dis
+				null_posi = posi
 	return null_posi # 如果周围没有空格子，返回 null
 
 func check_and_start():

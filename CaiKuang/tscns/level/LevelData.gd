@@ -66,5 +66,3 @@ static func _get_level1_data() -> Array:
 # 		print("Data saved to JSON successfully!")
 # 	else:
 # 		print("Failed to open file for writing.")
-
-
