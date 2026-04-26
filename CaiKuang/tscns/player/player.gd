@@ -17,6 +17,7 @@ var current_ore = null # 记录当前靠近的矿石节点
 var mining_interval = 0
 
 
+signal signal_merged(new_level: int)
 
 
 func _ready():
@@ -136,6 +137,7 @@ func merge(player: Player):
 		player.queue_free() # 删除被合并的玩家节点
 		level_label.text = str(data.level)
 		print("合并成功，当前等级: ", data.level)
+		signal_merged.emit(data.level)
 	else:
 		print("无法合并，等级不匹配")
 

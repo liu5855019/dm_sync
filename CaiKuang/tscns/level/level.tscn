@@ -39,29 +39,5 @@ offset_bottom = 640.0
 vertical_scroll_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 1"
-
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 2"
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 1"
-
-[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 1"
-
-[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 1"
-
-[node name="Button6" type="Button" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-text = "level 1"

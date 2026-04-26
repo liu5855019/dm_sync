@@ -5,33 +5,36 @@ class_name Level
 
 var player_scene = load("res://tscns/player/player.tscn")
 var ore_scene = load("res://tscns/ore/ore.tscn")
+var level_btn_scene = load("res://tscns/LevelBtn/LevelBtn.tscn")
 
 var score = 0.0
 signal score_changed(old_value: int, new_value: int)
+signal max_player_level_changed(new_level: int)
 
 @onready var score_node = $Score
+
+var max_plarer_level = 1
+
 
 # 声明一个只能存储 OreData 对象的数组
 # var player_data_list: Array[OreData] = []
 var player_data_list: Array = []
 
 func _ready() -> void:
-	player_data_list.append(OreData.new(1,Vector2(0, 0)))
-	player_data_list.append(OreData.new(1,Vector2(1, 0)))
-	player_data_list.append(OreData.new(2, Vector2(1, 1)))
-	player_data_list.append(OreData.new(2, Vector2(1, 2)))
-	player_data_list.append(OreData.new(3, Vector2(1, 3)))
-	
-	player_data_list.append(OreData.new(4, Vector2(1, 4)))
-	player_data_list.append(OreData.new(5, Vector2(1, 5)))
-	player_data_list.append(OreData.new(6, Vector2(1, 6)))
+
+	_add_level_btns()
 
 	player_data_list = LevelData.get_data_by_level(1)
-	
-	# save_data() # 保存数据到 JSON 文件
 
 	reload_scene()
 
+
+func _add_level_btns():
+	var level_btn_container = $ScrollContainer/HBoxContainer
+	for i in range(1, 11):
+		var scene = level_btn_scene.instantiate()
+		scene.level = i
+		level_btn_container.add_child(scene)
 
 
 func _physics_process(delta: float) -> void:
@@ -78,6 +81,13 @@ func _on_ore_mined(value: int):
 	score_changed.emit(score - value, score)
 
 	score_node.on_score_changed(score-value, score)
+
+func _on_player_merged(new_level: int):
+	if new_level > max_plarer_level:
+		max_plarer_level = new_level
+		print("当前最高玩家等级: ", max_plarer_level)
+		max_player_level_changed.emit(max_plarer_level)
+
 
 
 #
