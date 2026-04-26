@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://c5uuk3524ip0w"]
 
 [ext_resource type="Texture2D" uid="uid://6633hcir26ly" path="res://items/MapTile.png" id="1_011u6"]
-[ext_resource type="Script" uid="uid://b2kxrljth2udh" path="res://tscns/level.gd" id="1_nfut8"]
+[ext_resource type="Script" uid="uid://b2kxrljth2udh" path="res://tscns/level/level.gd" id="1_nfut8"]
 [ext_resource type="PackedScene" uid="uid://dbo3cbre768nl" path="res://tscns/score/score.tscn" id="2_5e6ql"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_011u6"]
@@ -30,3 +30,38 @@ tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAA
 tile_set = SubResource("TileSet_011u6")
 
 [node name="Resources" type="Node2D" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 76)
+offset_top = 564.0
+offset_right = 320.0
+offset_bottom = 640.0
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 1"
+
+[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 2"
+
+[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 1"
+
+[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 1"
+
+[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 1"
+
+[node name="Button6" type="Button" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+text = "level 1"
