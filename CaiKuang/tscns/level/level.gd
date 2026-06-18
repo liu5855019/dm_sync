@@ -25,7 +25,7 @@ func _ready() -> void:
 
 	_add_level_btns()
 
-	player_data_list = LevelData.get_data_by_level(1)
+	player_data_list = LevelData.get_data_by_level(10)
 
 	reload_scene()
 
