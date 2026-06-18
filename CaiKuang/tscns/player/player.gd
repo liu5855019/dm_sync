@@ -110,8 +110,8 @@ func snap_to_grid():
 			global_position = tile_map_layer.to_global(tile_map_layer.map_to_local(data.position))
 			return
 
-	if node != null and node is Ore:
-		# 如果格子上有矿石，找到附近的空格子
+	if node != null and (node is Ore or node is Stone):
+		# 如果格子上有矿石或石头，找到附近的空格子
 		var nearby_null_tile = tile_map_layer.find_nearby_null_tile(tile_coord)
 		if nearby_null_tile != null:
 			tile_coord = nearby_null_tile

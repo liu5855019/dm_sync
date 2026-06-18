@@ -5,6 +5,7 @@ class_name Level
 
 var player_scene = load("res://tscns/player/player.tscn")
 var ore_scene = load("res://tscns/ore/ore.tscn")
+var stone_scene = load("res://tscns/stone/stone.tscn")
 var level_btn_scene = load("res://tscns/LevelBtn/LevelBtn.tscn")
 
 var score: int = 0
@@ -49,6 +50,19 @@ func reload_scene() -> void:
 			add_player(data)
 		if data is OreData:
 			add_ore(data)
+		if data is StoneData:
+			add_stone(data)
+
+
+func add_stone(data: StoneData):
+	var stone = stone_scene.instantiate()
+	stone.data = data
+
+	var snapped_local_pos = $TileMapLayer.map_to_local(data.position)
+	var p = $TileMapLayer.to_global(snapped_local_pos)
+	stone.position = p
+
+	$Resources.add_child(stone)
 
 
 func add_ore(data:OreData):

@@ -8,6 +8,8 @@ func get_node_in_tile(pos: Vector2i) -> Node:
 			return node
 		if node is Player and node.data.position == pos:
 			return node
+		if node is Stone and node.data.position == pos:
+			return node
 	return null
 
 

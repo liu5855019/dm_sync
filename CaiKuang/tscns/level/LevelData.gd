@@ -50,7 +50,15 @@ static func _get_level1_data() -> Array:
 		OreData.new(1, Vector2(4, 9)),
 		OreData.new(1, Vector2(5, 9)),
 		OreData.new(1, Vector2(6, 9)),
-		OreData.new(1, Vector2(7, 9))
+		OreData.new(1, Vector2(7, 9)),
+
+		# 石头墙壁
+		StoneData.new(Vector2(0, 1)),
+		StoneData.new(Vector2(0, 2)),
+		StoneData.new(Vector2(0, 3)),
+		StoneData.new(Vector2(0, 4)),
+		StoneData.new(Vector2(0, 5)),
+		StoneData.new(Vector2(0, 6))
 	]
 	return data_list
 
