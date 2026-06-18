@@ -29,6 +29,13 @@ func _ready() -> void:
 
 	reload_scene()
 
+	spawn_default_players()
+
+
+func spawn_default_players():
+	add_player(PlayerData.new(1, Vector2i(3, 12)))
+	add_player(PlayerData.new(1, Vector2i(4, 12)))
+
 
 func _add_level_btns():
 	var level_btn_container = $ScrollContainer/HBoxContainer

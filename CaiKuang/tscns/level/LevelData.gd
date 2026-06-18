@@ -6,4 +6,9 @@ static func get_data_by_level(lvl: int) -> Array:
 	if script == null:
 		print("Failed to load level file: ", path)
 		return []
-	return script.get_data()
+	var row_dict = script.get_data()
+	var result = []
+	for row in row_dict.keys():
+		for item in row_dict[row]:
+			result.append(item)
+	return result
