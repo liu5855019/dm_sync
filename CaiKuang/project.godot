@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Caikuang"
-run/main_scene="uid://c5uuk3524ip0w"
+run/main_scene="res://tscns/level_select/LevelSelect.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

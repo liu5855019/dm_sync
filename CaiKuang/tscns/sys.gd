@@ -5,3 +5,4 @@
 extends Node
 
 var is_pase:bool = false
+var current_level:int = 1

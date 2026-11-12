@@ -25,7 +25,7 @@ func _ready() -> void:
 
 	_add_level_btns()
 
-	player_data_list = LevelData.get_data_by_level(10)
+	player_data_list = LevelData.get_data_by_level(Sys.current_level)
 
 	reload_scene()
 
@@ -46,6 +46,11 @@ func _add_level_btns():
 		self.max_player_level_changed.connect(level_btn.on_max_player_level_changed)
 		self.score_changed.connect(level_btn.on_score_changed)
 		level_btn_container.add_child(level_btn)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://tscns/level_select/LevelSelect.tscn")
 
 
 func _physics_process(delta: float) -> void:
